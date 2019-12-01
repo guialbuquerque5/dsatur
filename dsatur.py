@@ -1,19 +1,6 @@
 import time
 import sys
-
-G = [
-        [1, 2, 3, 4, 8],#1
-        [0, 2, 3, 8, 9],#2
-        [0, 4, 1],#3
-        [0, 1, 4, 6],#4
-        [0, 2, 3, 6, 5, 7],#5
-        [4, 7, 8],#6
-        [3, 4, 8, 9],#7
-        [5, 8, 4],#8
-        [0, 7, 5, 6, 1, 9],#9
-        [6, 1, 8],#10
-    ]
-        
+ 
 def build_graph(filename):
     g = []
     with open(filename) as f:
@@ -23,17 +10,17 @@ def build_graph(filename):
     return g
 
 if len(sys.argv) == 1:
-    print('Error! To use this script you should pass the csv file name as argument!')
+    print('Error! To use this script you should pass the csv filename as argument!')
     print('ex: python dsatur.py grafo.csv')
     sys.exit()
 
-G = build_graph(sys.argv[1])
+G = build_graph(sys.argv[1]) #build graph here
 
 n_v = len(G)
 V = [i for i in range(n_v)]
 colors = [None] * n_v
 
-order = lambda (v,g): len(g[v])
+order = lambda v: len(v[1][v[0]])
 
 def d_sat(v):
     c = set()
@@ -49,10 +36,10 @@ def max_d_sat(v_list):
     r = [v for v in r if r[v] == max_sat]
     return r
     
-def max_order(V,g):
-    bigger = [V[0],0]
-    for _v in V:
-        bigger = [_v, order((_v, g))] if order((_v, g)) > bigger[1] else bigger
+def max_order(v_list,g):
+    bigger = [v_list[0],0]
+    for _v in v_list:
+        bigger = [_v, order([_v, g])] if order([_v, g]) > bigger[1] else bigger
     return bigger[0]
 
 def next(v_list, g):
@@ -61,11 +48,10 @@ def next(v_list, g):
     return max_order(max_d_sat(v_list),g)
 
 def remove_rel(v, g):
-    t =  g
-    for e in t:
-        if v in t[e]:
-            t[e].remove(v)
-    return t
+    for e in g:
+        if v in g[e]:
+            g[e].remove(v)
+    return g
 
 def hash_graph(g):
     return { i: g[i] for i in range(len(g)) }
@@ -94,12 +80,15 @@ def dsatur(V, g):
         V.remove(_next)
         _next = next( [_v for _v in V if colors[_v] is None], _g)
         _g = remove_rel(_next, _g)
+    return colors
 
 start_time = time.time()
-dsatur(V,G)
+
+result_colors = dsatur(V,G)#execute algorith
+
 elapsed_time = time.time() - start_time
 
 print('Result colors:')
-print(colors)
+print(result_colors)
 
 print('Time execution: %f s' % elapsed_time)
