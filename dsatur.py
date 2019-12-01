@@ -1,4 +1,6 @@
-n_c = 4
+import time
+import sys
+
 G = [
         [1, 2, 3, 4, 8],#1
         [0, 2, 3, 8, 9],#2
@@ -20,7 +22,12 @@ def build_graph(filename):
             g.append([int(x)-1 for x in row.split(',')[1:]])
     return g
 
-G = build_graph('grafo.csv')
+if len(sys.argv) == 1:
+    print('Error! To use this script you should pass the csv file name as argument!')
+    print('ex: python dsatur.py grafo.csv')
+    sys.exit()
+
+G = build_graph(sys.argv[1])
 
 n_v = len(G)
 V = [i for i in range(n_v)]
@@ -88,8 +95,11 @@ def dsatur(V, g):
         _next = next( [_v for _v in V if colors[_v] is None], _g)
         _g = remove_rel(_next, _g)
 
-#timer should come here
+start_time = time.time()
 dsatur(V,G)
-#end time
+elapsed_time = time.time() - start_time
 
+print('Result colors:')
 print(colors)
+
+print('Time execution: %f s' % elapsed_time)
