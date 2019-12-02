@@ -141,11 +141,13 @@ finally:
 #Ve os graus de cada vertice
 graus = {i: len(G[i]) for i in range(len(G))}
 
-#Procura por grau maximo, minimo, medio e o desvio padrao dos graus
+#Procura por grau maximo, minimo, medio e desvio padrao dos graus, alem de numero de cores
+#graus
 minimo = 2147483646
 maximo = 0
 medio = 0
 desvio_padrao = 0
+#max de cores
 max_cores = -1
 for i in range( len(graus) ):
     if result_colors[i] > max_cores:
@@ -157,6 +159,7 @@ for i in range( len(graus) ):
     medio += graus[i]
 medio /= len(graus)
 
+#imprime os valores
 print("Minimo: " + str(minimo) + " Maximo: " + str(maximo) + " Medio: " + str(medio) + " Desvio Padrao: " + "To do" )
 print("Numero de vertices: " + str( len(graus) ) + " Numero de cores: " + str(max_cores +1) )
 
