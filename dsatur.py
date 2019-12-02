@@ -24,7 +24,7 @@ n_v = len(G)
 V = [i for i in range(n_v)]
 #Lista de cores
 colors = [None] * n_v
-#funcao que retorna o grau de saturacao (?)
+#funcao que retorna o grau do vertice
 order = lambda v: len(v[1][v[0]])
 
 #Funcao que retorna o grau de saturacao do vertice
@@ -43,27 +43,27 @@ def max_d_sat(v_list):
     r = [v for v in r if r[v] == max_sat]
     return r
 
-#Ordena o grafo com base no grau de saturacao
+#Ordena o grafo com base no grau
 def max_order(v_list,g):
     bigger = [v_list[0],0]
     for _v in v_list:
         bigger = [_v, order([_v, g])] if order([_v, g]) > bigger[1] else bigger
     return bigger[0]
 
-#Retorna um array com os vertices que sobraram, caso existam
+#Retorna o proximo vertice a ser colorido
 def next(v_list, g):
     if len(v_list) == 0:
         return None
     return max_order(max_d_sat(v_list),g)
 
-#Remove um vertice
+#Remove as arestas de um vertice
 def remove_rel(v, g):
     for e in g:
         if v in g[e]:
             g[e].remove(v)
     return g
 
-#Printa o grafo
+#transforma de lista para hash(dict)
 def hash_graph(g):
     return { i: g[i] for i in range(len(g)) }
 
