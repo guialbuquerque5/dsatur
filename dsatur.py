@@ -120,14 +120,43 @@ print(result_colors)
 
 print('Time execution: %f s' % elapsed_time)
 
+#Escreve no .csv a resposta do programa ao grafo,
+#com cada row correspondendo a um par Vertice, Cor
+
+#Abre o arquivo .csv
 f = open("tabelaResposta.csv", "w")
 try:
+    #Cria o writer
     writer = csv.writer(f)
+    #Para cada vertice do grafo
     for i in range(n_v):
+	#Escreve uma linha com Vertice, Cor
+        #Eh usado i+1 pq a identificacao dos vertices comeca em 1 ao inves de 0
         writer.writerow( (i+1, result_colors[i]) )
-        
-finally:    
-    f.close()
-        
 
-        
+finally:
+    #Fecha o arquivo .csv
+    f.close()
+
+#Ve os graus de cada vertice
+graus = {i: len(G[i]) for i in range(len(G))}
+
+#Procura por grau maximo, minimo, medio e o desvio padrao dos graus
+minimo = 2147483646
+maximo = 0
+medio = 0
+desvio_padrao = 0
+max_cores = -1
+for i in range( len(graus) ):
+    if result_colors[i] > max_cores:
+        max_cores = result_colors[i] 
+    if graus[i] < minimo:
+        minimo = graus[i]
+    if graus[i] > maximo:
+        maximo = graus[i]
+    medio += graus[i]
+medio /= len(graus)
+
+print("Minimo: " + str(minimo) + " Maximo: " + str(maximo) + " Medio: " + str(medio) + " Desvio Padrao: " + "To do" )
+print("Numero de vertices: " + str( len(graus) ) + " Numero de cores: " + str(max_cores +1) )
+
