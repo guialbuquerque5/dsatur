@@ -1,5 +1,6 @@
 import time
 import sys
+import csv
 
 #Constroi o grafo a partir da csv 
 def build_graph(filename):
@@ -118,3 +119,15 @@ print('Result colors:')
 print(result_colors)
 
 print('Time execution: %f s' % elapsed_time)
+
+f = open("tabelaResposta.csv", "w")
+try:
+    writer = csv.writer(f)
+    for i in range(n_v):
+        writer.writerow( (i+1, result_colors[i]) )
+        
+finally:    
+    f.close()
+        
+
+        
