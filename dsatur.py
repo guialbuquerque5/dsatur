@@ -3,7 +3,7 @@ import time
 import sys
 import csv
 
-colors_map = { 0: 'vermelho', 1: 'verde', 2: 'azul', 3: 'amarelo', 4: 'laranja' }
+colors_map = { 0: 'vermelho', 1: 'verde', 2: 'azul', 3: 'amarelo', 4: 'laranja', 5: 'roxo', 6: 'preto'}
 
 #Constroi o grafo a partir da csv 
 def build_graph(filename):
@@ -131,12 +131,12 @@ f = open("tabelaResposta.csv", "w")
 try:
     #Cria o writer
     writer = csv.writer(f)
-    writer.writerow(('vertice', 'indice_cor', 'cor'))
+    writer.writerow(('vertice', 'cor'))
     #Para cada vertice do grafo
     for i in range(n_v):
 	#Escreve uma linha com Vertice, Cor
         #Eh usado i+1 pq a identificacao dos vertices comeca em 1 ao inves de 0
-        writer.writerow( (i+1, result_colors[i], colors_map[result_colors[i]]) )
+        writer.writerow( (i+1, colors_map[result_colors[i]]) )
 
 finally:
     #Fecha o arquivo .csv
