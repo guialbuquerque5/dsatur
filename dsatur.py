@@ -148,6 +148,7 @@ minimo = 2147483646
 maximo = 0
 medio = 0
 desvio_padrao = 0
+arestas = 0
 #max de cores
 max_cores = -1
 for i in range( len(graus) ):
@@ -158,9 +159,11 @@ for i in range( len(graus) ):
     if graus[i] > maximo:
         maximo = graus[i]
     medio += graus[i]
+    arestas += graus[i]
 medio /= len(graus)
+arestas /= 2
 
 #imprime os valores
 print("Minimo: " + str(minimo) + " Maximo: " + str(maximo) + " Medio: " + str(medio) + " Desvio Padrao: " + str(statistics.pstdev(graus)) )
-print("Numero de vertices: " + str( len(graus) ) + " Numero de cores: " + str(max_cores +1) )
+print("Numero de vertices: " + str( len(graus) ) + " Numero de cores: " + str(max_cores +1) + " Numero de arestas: " + str(arestas) )
 
