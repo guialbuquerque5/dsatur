@@ -3,6 +3,8 @@ import time
 import sys
 import csv
 
+colors_map = { 0: 'vermelho', 1: 'verde', 2: 'azul', 3: 'amarelo', 4: 'laranja' }
+
 #Constroi o grafo a partir da csv 
 def build_graph(filename):
     g = []
@@ -129,11 +131,12 @@ f = open("tabelaResposta.csv", "w")
 try:
     #Cria o writer
     writer = csv.writer(f)
+    writer.writerow(('vertice', 'indice_cor', 'cor'))
     #Para cada vertice do grafo
     for i in range(n_v):
 	#Escreve uma linha com Vertice, Cor
         #Eh usado i+1 pq a identificacao dos vertices comeca em 1 ao inves de 0
-        writer.writerow( (i+1, result_colors[i]) )
+        writer.writerow( (i+1, result_colors[i], colors_map[result_colors[i]]) )
 
 finally:
     #Fecha o arquivo .csv
@@ -167,3 +170,4 @@ arestas /= 2
 print("Minimo: " + str(minimo) + " Maximo: " + str(maximo) + " Medio: " + str(medio) + " Desvio Padrao: " + str(statistics.pstdev(graus)) )
 print("Numero de vertices: " + str( len(graus) ) + " Numero de cores: " + str(max_cores +1) + " Numero de arestas: " + str(arestas) )
 
+print(colors)
