@@ -1,3 +1,4 @@
+import statistics
 import time
 import sys
 import csv
@@ -160,6 +161,6 @@ for i in range( len(graus) ):
 medio /= len(graus)
 
 #imprime os valores
-print("Minimo: " + str(minimo) + " Maximo: " + str(maximo) + " Medio: " + str(medio) + " Desvio Padrao: " + "To do" )
+print("Minimo: " + str(minimo) + " Maximo: " + str(maximo) + " Medio: " + str(medio) + " Desvio Padrao: " + str(statistics.pstdev(graus)) )
 print("Numero de vertices: " + str( len(graus) ) + " Numero de cores: " + str(max_cores +1) )
 
